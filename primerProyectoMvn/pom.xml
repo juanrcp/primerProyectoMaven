@@ -25,12 +25,29 @@
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
+    
+    <!-- AQUI INSERTO DEPENDENCIA PARA POSTGRESQL -->  
+  <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+	<dependency>
+    	<groupId>org.postgresql</groupId>
+    	<artifactId>postgresql</artifactId>
+    	<version>42.5.0</version>
+	</dependency>
+	
+	<!-- AQUI INSERTO DEPENDENCIA PARA MYSQL -->
+	<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+	<dependency>
+    	<groupId>mysql</groupId>
+    	<artifactId>mysql-connector-java</artifactId>
+    	<version>8.0.30</version>
+	</dependency>
+
   </dependencies>
 
   <build>  
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
-        <!--AQUI INSERTO CODIGO -->
+        <!--AQUI INSERTO CODIGO DEL PLUNING-->
         <plugin>
       	<groupId>org.apache.maven.plugins</groupId>
       	<artifactId>maven-compiler-plugin</artifactId>
