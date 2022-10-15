@@ -13,6 +13,7 @@ public class variablesConexionPostgreSQL {
 //	static final String HOST = "localhost";
 //	static final String DB = "EjemploInicial";	
 	
+	//DATOS DE CONEXION PARA MYSQL
 	static final String USER = "root";
 	static final String PASS = "miprimerabasededatos";
 	static final String PORT = "3306";

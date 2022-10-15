@@ -46,7 +46,7 @@ public class consultasPostgreSQL {
 		    resultadoConsulta.close();
 		    declaracionSQL.close();
 		    //conexionGenerada.close();
-		    CierraConexion.Cierrar(conexionGenerada);
+		    //CierraConexion.Cierrar(conexionGenerada);
 			
 		} catch (SQLException e) {
 			
@@ -69,6 +69,7 @@ public class consultasPostgreSQL {
 			declaracionSQL.execute(query);
 			declaracionSQL.close();
 			
+			System.out.println("[INFORMACIÓN-consultasPostgreSQL-insertNuevoAlumno] Insercion realizada.");
 			System.out.println("[INFORMACIÓN-consultasPostgreSQL-insertNuevoAlumno] Cierre declaración.");
 			
 		} catch (SQLException e) {

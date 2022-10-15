@@ -44,9 +44,10 @@ public class controladorPostgreSQL {
 			listAlumnos = consultasPostgreSQL.selectAllAlumnos(conexionGenerada);
 			int i = listAlumnos.size();
 			System.out.println("[INFORMACIÓN-controladorPortgreSQL-main] Número alumnos: "+i);
-			consultasPostgreSQL.insertNuevoAlumno("INSERT INTO \\\"proyectoEclipse\\\".alumnos (\\\"Id_alumno\\\", \\\"nombre\\\", \\\"apellidos\\\", \\\"email\\\") VALUES (\\n\" + id + \", '\" + nombre + \"', \\'\" + apellidos + \"', \\'\" + email + \"');", conexionGenerada);
-			i = listAlumnos.size();
-			System.out.println("[INFORMACIÓN-controladorPortgreSQL-main] Número alumnos con insercion: "+i);
+			consultasPostgreSQL.insertNuevoAlumno("INSERT INTO `proyectoeclipse`.`alumnos` (`id_alumno`, `nombre`, `apellidos`, `email`) VALUES ('6', 'Carlos', 'Perez', 'DSFSD@GMAIL.COM');", conexionGenerada);
+			listAlumnos = consultasPostgreSQL.selectAllAlumnos(conexionGenerada);
+			System.out.println("Numero alumnos: " + listAlumnos.size());
+
 			
 		}
 		CierraConexion.Cierrar(conexionGenerada);
