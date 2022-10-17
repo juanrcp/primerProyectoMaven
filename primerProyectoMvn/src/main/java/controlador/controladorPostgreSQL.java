@@ -41,15 +41,27 @@ public class controladorPostgreSQL {
 			
 			//Llamar al método que ejecuta la consulta
 			System.out.println("[INFORMACIÓN-controladorPortgreSQL-main] Lamada selectAllAlumnos");
-			listAlumnos = consultasPostgreSQL.selectAllAlumnos(conexionGenerada);
+			listAlumnos = consultasPostgreSQL.selectAllAlumnos("select alumnos.nombre, asignaturas.nombre from \"proyectoEclipse\".alumnos join \"proyectoEclipse\".rel_alum_asig ON rel_alum_asig.id_alumno = alumnos.\"Id_alumno\" JOIN \"proyectoEclipse\".asignaturas on asignaturas.id_asignatura = rel_alum_asig.id_asignatura", conexionGenerada);
 			int i = listAlumnos.size();
 			System.out.println("[INFORMACIÓN-controladorPortgreSQL-main] Número alumnos: "+i);
-			consultasPostgreSQL.insertNuevoAlumno("INSERT INTO `proyectoeclipse`.`alumnos` (`id_alumno`, `nombre`, `apellidos`, `email`) VALUES ('6', 'Carlos', 'Perez', 'DSFSD@GMAIL.COM');", conexionGenerada);
-			listAlumnos = consultasPostgreSQL.selectAllAlumnos(conexionGenerada);
+			
+			//Llamamos al metodo para la insercion de un nuevo alumno y comprobamos con el metodo anterior la inserción
+			consultasPostgreSQL.insertNuevoAlumno("INSERT INTO \"proyectoEclipse\".alumnos (\"Id_alumno\", \"nombre\", \"apellidos\", \"email\") VALUES (6, 'Carlos', 'Perez', 'DSFSD@GMAIL.COM');", conexionGenerada);
+			listAlumnos = consultasPostgreSQL.selectAllAlumnos("select alumnos.nombre, asignaturas.nombre from \"proyectoEclipse\".alumnos join \"proyectoEclipse\".rel_alum_asig ON rel_alum_asig.id_alumno = alumnos.\"Id_alumno\" JOIN \"proyectoEclipse\".asignaturas on asignaturas.id_asignatura = rel_alum_asig.id_asignatura", conexionGenerada);
 			System.out.println("Numero alumnos: " + listAlumnos.size());
+			
+			//Llamamos al metodo para borrar el campo creado
+			consultasPostgreSQL.deleteAlumno("delete from \"proyectoEclipse\".alumnos where alumnos.\"Id_alumno\" = '6';", conexionGenerada);
+			
+			//Llamamos al metodo para modificar
+			consultasPostgreSQL.updateAlumno("update \"proyectoEclipse\".alumnos set email = 'CAMBIO' where alumnos.\"Id_alumno\" = '3';", conexionGenerada);
+			
+			//Llamamos al metodo para crear tablas. 
+			consultasPostgreSQL.CreateTable("create table \"proyectoEclipse\".profesores (\"id_profesor\" serial, \"nombre\" character VARYING, \"apellidos\" character VARYING, \"email\" character VARYING);", conexionGenerada);
 
 			
 		}
+		//Al terminar todas las operaciones cerramos la conexion. 		
 		CierraConexion.Cierrar(conexionGenerada);
 	
 	}

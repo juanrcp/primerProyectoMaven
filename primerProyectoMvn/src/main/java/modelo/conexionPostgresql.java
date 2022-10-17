@@ -32,9 +32,13 @@ public class conexionPostgresql {
          * asegurarnos de que ambas variables están limpias.
          */
         Connection conexion = null;
-        String url = "";            
-        //url = "jdbc:postgresql://" + host + ":" + port + "/" + db;
-        url = "jdbc:mysql://localhost:3306/?serverTimezone=UTC";
+        String url = "";
+        
+        //Conexion para Postgre
+        url = "jdbc:postgresql://" + host + ":" + port + "/" + db;
+        
+        //Conexion para MySql
+        //url = "jdbc:mysql://localhost:3306/?serverTimezone=UTC";
 		
         try {
         	

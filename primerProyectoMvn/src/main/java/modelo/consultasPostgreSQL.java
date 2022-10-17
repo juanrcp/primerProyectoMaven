@@ -14,7 +14,7 @@ import util.CierraConexion;
  */
 public class consultasPostgreSQL {
 	
-	public static ArrayList<dtoAlumno> selectAllAlumnos(Connection conexionGenerada) {
+	public static ArrayList<dtoAlumno> selectAllAlumnos(String query, Connection conexionGenerada) {
 		
 		System.out.println("[INFORMACIÓN-consultasPostgreSQL-selectAllAlumnos] Entra en selectAllAlumnos");
 		Statement declaracionSQL = null;
@@ -28,25 +28,27 @@ public class consultasPostgreSQL {
 			//Se abre una declaración
 			declaracionSQL = conexionGenerada.createStatement();
 			//Se define la consulta de la declaración y se ejecuta
-			resultadoConsulta = declaracionSQL.executeQuery("SELECT * FROM proyectoeclipse.alumnos");
+			resultadoConsulta = declaracionSQL.executeQuery("SELECT * FROM \"proyectoEclipse\".alumnos");
 		    
 			//Llamada a la conversión a dtoAlumno
 			listAlumnos = dtoADto.resultsetAdtoAlumno(resultadoConsulta);
 			int i = listAlumnos.size();
 			System.out.println("[INFORMACIÓN-consultasPostgreSQL-selectAllAlumnos] Número alumnos: "+i);
 			
+			//Ejecutamos la consulta que nos interese, la recogemos en un ResultSet y la almacenamos en una lista
 			resultadoConsulta = null;
-			resultadoConsulta = declaracionSQL.executeQuery("select alumnos.nombre, asignaturas.nombre from proyectoeclipse.alumnos join proyectoeclipse.alumno_asignatura on alumnos.id_alumno = alumno_asignatura.id_alumno join proyectoeclipse.asignaturas on asignaturas.idasignaturas = alumno_asignatura.id_asignatura");
+			resultadoConsulta = declaracionSQL.executeQuery(query);
 			listAlmAsig = dtoADto.resultsetAdtoAlumnoAsignatura(resultadoConsulta);
+			
+			//Aqui mostramos la lista
 			for (dtoAlumnoAsignatura dtoAlumnoAsignatura : listAlmAsig) {
-				System.out.println("Registro alumno: " + dtoAlumnoAsignatura.getNombre_alumno() + " " + dtoAlumnoAsignatura.getNombre_asignatura());
+				System.out.println("Registro alumno: " + dtoAlumnoAsignatura.getNombre_alumno() + " " + dtoAlumnoAsignatura.getApellidos_alumno() + " " + " " + dtoAlumnoAsignatura.getEmail_alumno() + " " + dtoAlumnoAsignatura.getNombre_asignatura());
 			}
 			
 			System.out.println("[INFORMACIÓN-consultasPostgreSQL-selectAllAlumnos] Cierre conexión, declaración y resultado");				
 		    resultadoConsulta.close();
 		    declaracionSQL.close();
-		    //conexionGenerada.close();
-		    //CierraConexion.Cierrar(conexionGenerada);
+
 			
 		} catch (SQLException e) {
 			
@@ -60,13 +62,15 @@ public class consultasPostgreSQL {
 	
 	public static void insertNuevoAlumno(String query, Connection conexionGenerada) {
 		
+		//Declaramos un Statement donde recogeremos la query de la insercion 
 		System.out.println("[INFORMACIÓN-consultasPostgreSQL-insertNuevoAlumno] Entra en insertNuevoAlumno");
 		Statement declaracionSQL = null;
 		
 		try {
-			
 			declaracionSQL = conexionGenerada.createStatement();
 			declaracionSQL.execute(query);
+			
+			//Cerramos la declaracion
 			declaracionSQL.close();
 			
 			System.out.println("[INFORMACIÓN-consultasPostgreSQL-insertNuevoAlumno] Insercion realizada.");
@@ -75,6 +79,84 @@ public class consultasPostgreSQL {
 		} catch (SQLException e) {
 			
 			System.out.println("[ERROR-consultasPostgreSQL-insertNuevoAlumno] Error al insertar alumno: " + e);
+		
+		}
+		
+	}
+	
+	public static void deleteAlumno (String query, Connection conexionGenerada) {
+		
+		//Declaramos un Statement donde recogeremos la query del alumno que queremos eliminar.  
+		System.out.println("[INFORMACIÓN-consultasPostgreSQL-insertNuevoAlumno] Entra en deleteAlumno");
+		Statement declaracionSQL = null;
+		
+		try {
+			
+			//Declaramos la query que queramos eliminar. 
+			declaracionSQL = conexionGenerada.createStatement();
+			declaracionSQL.execute(query);
+			
+			//Cerramos la declaracion
+			declaracionSQL.close();
+			
+			System.out.println("[INFORMACIÓN-consultasPostgreSQL-insertNuevoAlumno] Borrado con exito realizada!!!!!!!!!!");
+			System.out.println("[INFORMACIÓN-consultasPostgreSQL-insertNuevoAlumno] Cierre declaración.");
+			
+		} catch (SQLException e) {
+			
+			System.out.println("[ERROR-consultasPostgreSQL-insertNuevoAlumno] Error al Borrar alumno: " + e);
+		
+		}		
+	}
+	
+	public static void updateAlumno (String query, Connection conexionGenerada) {
+		
+		//Declaramos un Statement donde recogeremos la query del alumno que queremos modificar.  
+		System.out.println("[INFORMACIÓN-consultasPostgreSQL-insertNuevoAlumno] Entra en deleteAlumno");
+		Statement declaracionSQL = null;
+		
+		try {
+			
+			//Declaramos la query correspondiente al alumno que queramos modificar y la ejecutamos. 
+			declaracionSQL = conexionGenerada.createStatement();
+			declaracionSQL.execute(query);
+			
+			//Cerramos la declaracion
+			declaracionSQL.close();
+			
+			System.out.println("[INFORMACIÓN-consultasPostgreSQL-insertNuevoAlumno] Modificacion realizada con exito realizada!!!!!!!!!!");
+			System.out.println("[INFORMACIÓN-consultasPostgreSQL-insertNuevoAlumno] Cierre declaración.");
+			
+		} catch (SQLException e) {
+			
+			System.out.println("[ERROR-consultasPostgreSQL-insertNuevoAlumno] Error al Editar alumno: " + e);
+		
+		}
+		
+	}
+	
+	
+	public static void CreateTable (String query, Connection conexionGenerada) {
+		
+		//Declaramos un Statement donde recogeremos la query de la tabla que queremos crear.  
+		System.out.println("[INFORMACIÓN-consultasPostgreSQL-insertNuevoAlumno] Entra en CreateTable");
+		Statement declaracionSQL = null;
+		
+		try {
+			
+			//Declaramos la query correspondiente a la tabla que queremos modificar. 
+			declaracionSQL = conexionGenerada.createStatement();
+			declaracionSQL.execute(query);
+			
+			//Cerramos la declaracion
+			declaracionSQL.close();
+			
+			System.out.println("[INFORMACIÓN-consultasPostgreSQL-insertNuevoAlumno] Tabla creada con exito realizada!!!!!!!!!!");
+			System.out.println("[INFORMACIÓN-consultasPostgreSQL-insertNuevoAlumno] Cierre declaración.");
+			
+		} catch (SQLException e) {
+			
+			System.out.println("[ERROR-consultasPostgreSQL-insertNuevoAlumno] Error al crear tabla.");
 		
 		}
 		

@@ -49,7 +49,7 @@ public class dtoADto {
 			while ( resultadoConsulta.next() ) {
 				
 				listAlumnosAsignaturas.add(new dtoAlumnoAsignatura(resultadoConsulta.getString(1),
-						resultadoConsulta.getString(2)));
+						resultadoConsulta.getString(2), resultadoConsulta.getString(3), resultadoConsulta.getString(1)));
 			}		
 			
 			
