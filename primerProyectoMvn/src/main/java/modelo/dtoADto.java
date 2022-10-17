@@ -10,7 +10,7 @@ import java.util.ArrayList;
  *
  */
 public class dtoADto {
-	
+	//Metodo consulta alumnos
 	public static ArrayList<dtoAlumno> resultsetAdtoAlumno(ResultSet resultadoConsulta){
 		
 		System.out.println("[INFORMACIÓN-resultsetAdtoAlumno-resultsetAdtoAlumno] Entrando en resultsetAdtoAlumno");
@@ -39,17 +39,18 @@ public class dtoADto {
 		
 	}
 	
+	//Metodo Alumnos + asignatura.nombre
 	public static ArrayList<dtoAlumnoAsignatura> resultsetAdtoAlumnoAsignatura(ResultSet resultadoConsulta){
 		
 		System.out.println("[INFORMACIÓN-resultsetAdtoAlumnoAsignatura-resultsetAdtoAlumnoAsignatura] Entrando en resultsetAdtoAlumnoAsignatura");
 		ArrayList<dtoAlumnoAsignatura> listAlumnosAsignaturas = new ArrayList<>();
 		
-		//Leemos el resultado de la consulta hasta que no queden filas
+		//Leemos el resultado de la consulta hasta que no queden filas y lo ordenamos
 		try {
 			while ( resultadoConsulta.next() ) {
 				
 				listAlumnosAsignaturas.add(new dtoAlumnoAsignatura(resultadoConsulta.getString(1),
-						resultadoConsulta.getString(2), resultadoConsulta.getString(3), resultadoConsulta.getString(1)));
+						resultadoConsulta.getString(2), resultadoConsulta.getString(3), resultadoConsulta.getString(4)));
 			}		
 			
 			

@@ -20,6 +20,7 @@ public class variablesConexionPostgreSQL {
 	static final String HOST = "localhost";
 	static final String DB = "proyectoeclipse";	
 	*/
+	//PROPIEDADES
 	public static String getUser() {
 		return USER;
 	}

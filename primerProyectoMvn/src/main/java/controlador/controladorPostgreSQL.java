@@ -39,9 +39,9 @@ public class controladorPostgreSQL {
 		
 		if(conexionGenerada != null) {
 			
-			//Llamar al método que ejecuta la consulta
+			//Llamar al método que ejecuta la consulta que nos interesa en este caso todos los alumnos, con todos sus datos y su de asignatura
 			System.out.println("[INFORMACIÓN-controladorPortgreSQL-main] Lamada selectAllAlumnos");
-			listAlumnos = consultasPostgreSQL.selectAllAlumnos("select alumnos.nombre, asignaturas.nombre from \"proyectoEclipse\".alumnos join \"proyectoEclipse\".rel_alum_asig ON rel_alum_asig.id_alumno = alumnos.\"Id_alumno\" JOIN \"proyectoEclipse\".asignaturas on asignaturas.id_asignatura = rel_alum_asig.id_asignatura", conexionGenerada);
+			listAlumnos = consultasPostgreSQL.selectAllAlumnos("select alumnos.nombre, alumnos.apellidos, alumnos.email, asignaturas.nombre from \"proyectoEclipse\".alumnos left join \"proyectoEclipse\".rel_alum_asig ON rel_alum_asig.id_alumno = alumnos.\"Id_alumno\" JOIN \"proyectoEclipse\".asignaturas on asignaturas.id_asignatura = rel_alum_asig.id_asignatura", conexionGenerada);
 			int i = listAlumnos.size();
 			System.out.println("[INFORMACIÓN-controladorPortgreSQL-main] Número alumnos: "+i);
 			

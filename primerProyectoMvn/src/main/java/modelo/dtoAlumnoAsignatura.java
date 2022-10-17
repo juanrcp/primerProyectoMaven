@@ -2,11 +2,13 @@ package modelo;
 
 public class dtoAlumnoAsignatura {
 	
+	//ATRIBUTOS
 	private String nombre_alumno;
 	private String apellidos_alumno;
 	private String email_alumno;
 	private String nombre_asignatura;
 	
+	//PROPIEDADES
 	public String getNombre_alumno() {
 		return nombre_alumno;
 	}
@@ -32,6 +34,7 @@ public class dtoAlumnoAsignatura {
 		this.nombre_asignatura = nombre_asignatura;
 	}
 	
+	//CONSTRUCTOR
 	public dtoAlumnoAsignatura(String nombre_alumno, String apellidos_alumno, String email_alumno,
 			String nombre_asignatura) {
 		super();
