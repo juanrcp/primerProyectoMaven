@@ -42,7 +42,7 @@ public class consultasPostgreSQL {
 			
 			//Aqui mostramos la lista
 			for (dtoAlumnoAsignatura dtoAlumnoAsignatura : listAlmAsig) {
-				System.out.println("Registro alumno: " + dtoAlumnoAsignatura.getNombre_alumno() + " " + dtoAlumnoAsignatura.getApellidos_alumno() + " " + " " + dtoAlumnoAsignatura.getEmail_alumno() + " " + dtoAlumnoAsignatura.getNombre_asignatura());
+				System.out.println("Registro alumno: " + dtoAlumnoAsignatura.getNombre_alumno() + " " + dtoAlumnoAsignatura.getApellidos_alumno() + " " + dtoAlumnoAsignatura.getEmail_alumno() + " " + dtoAlumnoAsignatura.getNombre_asignatura());
 			}
 			
 			System.out.println("[INFORMACIÓN-consultasPostgreSQL-selectAllAlumnos] Cierre conexión, declaración y resultado");				
@@ -87,7 +87,7 @@ public class consultasPostgreSQL {
 	public static void deleteAlumno (String query, Connection conexionGenerada) {
 		
 		//Declaramos un Statement donde recogeremos la query del alumno que queremos eliminar.  
-		System.out.println("[INFORMACIÓN-consultasPostgreSQL-insertNuevoAlumno] Entra en deleteAlumno");
+		System.out.println("[INFORMACIÓN-consultasPostgreSQL-deleteAlumno] Entra en deleteAlumno");
 		Statement declaracionSQL = null;
 		
 		try {
@@ -99,12 +99,12 @@ public class consultasPostgreSQL {
 			//Cerramos la declaracion
 			declaracionSQL.close();
 			
-			System.out.println("[INFORMACIÓN-consultasPostgreSQL-insertNuevoAlumno] Borrado con exito realizada!!!!!!!!!!");
-			System.out.println("[INFORMACIÓN-consultasPostgreSQL-insertNuevoAlumno] Cierre declaración.");
+			System.out.println("[INFORMACIÓN-consultasPostgreSQL-deleteAlumno] Borrado con exito realizada!!!!!!!!!!");
+			System.out.println("[INFORMACIÓN-consultasPostgreSQL-deleteAlumno] Cierre declaración.");
 			
 		} catch (SQLException e) {
 			
-			System.out.println("[ERROR-consultasPostgreSQL-insertNuevoAlumno] Error al Borrar alumno: " + e);
+			System.out.println("[ERROR-consultasPostgreSQL-deleteAlumno] Error al Borrar alumno: " + e);
 		
 		}		
 	}
@@ -112,7 +112,7 @@ public class consultasPostgreSQL {
 	public static void updateAlumno (String query, Connection conexionGenerada) {
 		
 		//Declaramos un Statement donde recogeremos la query del alumno que queremos modificar.  
-		System.out.println("[INFORMACIÓN-consultasPostgreSQL-insertNuevoAlumno] Entra en deleteAlumno");
+		System.out.println("[INFORMACIÓN-consultasPostgreSQL-updateAlumno] Entra en updateAlumno");
 		Statement declaracionSQL = null;
 		
 		try {
@@ -124,12 +124,12 @@ public class consultasPostgreSQL {
 			//Cerramos la declaracion
 			declaracionSQL.close();
 			
-			System.out.println("[INFORMACIÓN-consultasPostgreSQL-insertNuevoAlumno] Modificacion realizada con exito realizada!!!!!!!!!!");
-			System.out.println("[INFORMACIÓN-consultasPostgreSQL-insertNuevoAlumno] Cierre declaración.");
+			System.out.println("[INFORMACIÓN-consultasPostgreSQL-updateAlumno] Modificacion realizada con exito realizada!!!!!!!!!!");
+			System.out.println("[INFORMACIÓN-consultasPostgreSQL-updateAlumno] Cierre declaración.");
 			
 		} catch (SQLException e) {
 			
-			System.out.println("[ERROR-consultasPostgreSQL-insertNuevoAlumno] Error al Editar alumno: " + e);
+			System.out.println("[ERROR-consultasPostgreSQL-updateAlumno] Error al Editar alumno: " + e);
 		
 		}
 		
@@ -139,7 +139,7 @@ public class consultasPostgreSQL {
 	public static void CreateTable (String query, Connection conexionGenerada) {
 		
 		//Declaramos un Statement donde recogeremos la query de la tabla que queremos crear.  
-		System.out.println("[INFORMACIÓN-consultasPostgreSQL-insertNuevoAlumno] Entra en CreateTable");
+		System.out.println("[INFORMACIÓN-consultasPostgreSQL-CreateTable] Entra en CreateTable");
 		Statement declaracionSQL = null;
 		
 		try {
@@ -151,12 +151,12 @@ public class consultasPostgreSQL {
 			//Cerramos la declaracion
 			declaracionSQL.close();
 			
-			System.out.println("[INFORMACIÓN-consultasPostgreSQL-insertNuevoAlumno] Tabla creada con exito realizada!!!!!!!!!!");
-			System.out.println("[INFORMACIÓN-consultasPostgreSQL-insertNuevoAlumno] Cierre declaración.");
+			System.out.println("[INFORMACIÓN-consultasPostgreSQL-CreateTable] Tabla creada con exito realizada!!!!!!!!!!");
+			System.out.println("[INFORMACIÓN-consultasPostgreSQL-CreateTable] Cierre declaración.");
 			
 		} catch (SQLException e) {
 			
-			System.out.println("[ERROR-consultasPostgreSQL-insertNuevoAlumno] Error al crear tabla.");
+			System.out.println("[ERROR-consultasPostgreSQL-CreateTable] Error al crear tabla.");
 		
 		}
 		
