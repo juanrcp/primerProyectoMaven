@@ -3,14 +3,21 @@ package modelo;
 public class dtoAlumnoAsignatura {
 	
 	//ATRIBUTOS
+	private int id_alumno;
 	private String nombre_alumno;
 	private String apellidos_alumno;
 	private String email_alumno;
 	private String nombre_asignatura;
 	
-	//PROPIEDADES
+	//PROPIEDADES	
 	public String getNombre_alumno() {
 		return nombre_alumno;
+	}
+	public int getId_alumno() {
+		return id_alumno;
+	}
+	public void setId_alumno(int id_alumno) {
+		this.id_alumno = id_alumno;
 	}
 	public void setNombre_alumno(String nombre_alumno) {
 		this.nombre_alumno = nombre_alumno;
@@ -33,17 +40,16 @@ public class dtoAlumnoAsignatura {
 	public void setNombre_asignatura(String nombre_asignatura) {
 		this.nombre_asignatura = nombre_asignatura;
 	}
-	
+		
 	//CONSTRUCTOR
-	public dtoAlumnoAsignatura(String nombre_alumno, String apellidos_alumno, String email_alumno,
+	public dtoAlumnoAsignatura(int id_alumno, String nombre_alumno, String apellidos_alumno, String email_alumno,
 			String nombre_asignatura) {
 		super();
+		this.id_alumno = id_alumno;
 		this.nombre_alumno = nombre_alumno;
 		this.apellidos_alumno = apellidos_alumno;
 		this.email_alumno = email_alumno;
 		this.nombre_asignatura = nombre_asignatura;
-	}
-	
-	
+	}	
 
 }

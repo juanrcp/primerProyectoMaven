@@ -49,8 +49,8 @@ public class dtoADto {
 		try {
 			while ( resultadoConsulta.next() ) {
 				
-				listAlumnosAsignaturas.add(new dtoAlumnoAsignatura(resultadoConsulta.getString(1),
-						resultadoConsulta.getString(2), resultadoConsulta.getString(3), resultadoConsulta.getString(4)));
+				listAlumnosAsignaturas.add(new dtoAlumnoAsignatura(resultadoConsulta.getInt(1), resultadoConsulta.getString(2),
+						resultadoConsulta.getString(3), resultadoConsulta.getString(4), resultadoConsulta.getString(5)));
 			}		
 			
 			
@@ -62,5 +62,51 @@ public class dtoADto {
 		return listAlumnosAsignaturas;
 		
 	}
+	
+	//Metodo para recoger las Asignaturas
+	public static ArrayList<dtoAsignatura> resultsetAdtoAsignatura(ResultSet resultadoConsulta){
+		
+		System.out.println("[INFORMACIÓN-resultsetAdtoAsignatura-resultsetAdtoAsignatura] Entrando en resultsetAdtoAsignatura");
+		ArrayList<dtoAsignatura> listAsignaturas = new ArrayList<>();
+		
+		//Leemos el resultado de la consulta hasta que no queden filas y lo ordenamos
+		try {
+			while ( resultadoConsulta.next() ) {
+				
+				listAsignaturas.add(new dtoAsignatura(resultadoConsulta.getInt("id_asignatura"), resultadoConsulta.getString("nombre")));
+			}		
+			System.out.println("Tabla de asignaturas cargada");
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return listAsignaturas;
+		
+	}
+	
+	//Metodo para recoger relacion Alumnos_Asignaturas
+		public static ArrayList<dtorel_Alum_Asig> resultsetAdtorel_Alum_Asig(ResultSet resultadoConsulta){
+			
+			System.out.println("[INFORMACIÓN-resultsetAdtorel_Alum_Asig-resultsetAdtorel_Alum_Asig] Entrando en resultsetAdtoAsignatura");
+			ArrayList<dtorel_Alum_Asig> listAlum_Asig = new ArrayList<>();
+			
+			//Leemos el resultado de la consulta hasta que no queden filas y lo ordenamos
+			try {
+				while ( resultadoConsulta.next() ) {
+					
+					listAlum_Asig.add(new dtorel_Alum_Asig(resultadoConsulta.getInt("idalumno_asignatura"), resultadoConsulta.getInt("id_alumno"), resultadoConsulta.getInt("id_asignatura")));
+				}		
+				System.out.println("Cargada tabla rel_Alum_Asig");
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			return listAlum_Asig;
+			
+		}
 
 }

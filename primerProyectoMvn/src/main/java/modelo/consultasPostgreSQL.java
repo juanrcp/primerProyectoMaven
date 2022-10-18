@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import util.CierraConexion;
 
@@ -29,7 +30,7 @@ public class consultasPostgreSQL {
 			//Se abre una declaración
 			declaracionSQL = conexionGenerada.createStatement();
 			//Se define la consulta de la declaración y se ejecuta
-			resultadoConsulta = declaracionSQL.executeQuery("SELECT * FROM \"proyectoEclipse\".alumnos");
+			resultadoConsulta = declaracionSQL.executeQuery("SELECT * FROM proyectoeclipse.alumnos");
 		    
 			//Llamada a la conversión a dtoAlumno
 			listAlumnos = dtoADto.resultsetAdtoAlumno(resultadoConsulta);
@@ -43,7 +44,7 @@ public class consultasPostgreSQL {
 			
 			//Aqui mostramos la lista
 			for (dtoAlumnoAsignatura dtoAlumnoAsignatura : listAlmAsig) {
-				System.out.println("Registro alumno: " + dtoAlumnoAsignatura.getNombre_alumno() + " " + dtoAlumnoAsignatura.getApellidos_alumno() + " " + dtoAlumnoAsignatura.getEmail_alumno() + " " + dtoAlumnoAsignatura.getNombre_asignatura());
+				System.out.println("Registro alumno: " + dtoAlumnoAsignatura.getId_alumno() + " " + dtoAlumnoAsignatura.getNombre_alumno() + " " + dtoAlumnoAsignatura.getApellidos_alumno() + " " + dtoAlumnoAsignatura.getEmail_alumno() + " " + dtoAlumnoAsignatura.getNombre_asignatura());
 			}
 			
 			System.out.println("[INFORMACIÓN-consultasPostgreSQL-selectAllAlumnos] Cierre conexión, declaración y resultado");				
@@ -62,36 +63,75 @@ public class consultasPostgreSQL {
 	}
 	
 	//Metodo para unir dos tablas sin tener que hacer un join 
-	public static ArrayList<dtoAlumno> uneTablas(String query, Connection conexionGenerada) {
+	public static ArrayList<dtoAlumno> uneTablas(Connection conexionGenerada) {
 		
-		System.out.println("[INFORMACIÓN-consultasPostgreSQL-selectAllAlumnos] Entra en selectAllAlumnos");
+		System.out.println("[INFORMACIÓN-consultasPostgreSQL-uneTablas] Entra en uneTablas");
 		Statement declaracionSQL = null;
 		ResultSet resultadoConsulta = null;
-		ArrayList<dtoAlumno> listAlumnos = new ArrayList<>();
+		ArrayList<dtoAlumno> listAlumnos = new ArrayList<>();		
+		ArrayList<dtoAsignatura> listAsig = new ArrayList<>();
+		ArrayList<dtorel_Alum_Asig> listrel_Alum_Asig = new ArrayList<>();
+		dtoAlumnoAsignatura alumno_asignatura = null;
 		
-		ArrayList<dtoAlumnoAsignatura> listAlmAsig = new ArrayList<>();
 		
 		try {
 			
 			//Se abre una declaración
 			declaracionSQL = conexionGenerada.createStatement();
 			//Se define la consulta de la declaración y se ejecuta
-			resultadoConsulta = declaracionSQL.executeQuery("SELECT * FROM \"proyectoEclipse\".alumnos");
+			resultadoConsulta = declaracionSQL.executeQuery("SELECT * FROM proyectoeclipse.alumnos");
 		    
 			//Llamada a la conversión a dtoAlumno
 			listAlumnos = dtoADto.resultsetAdtoAlumno(resultadoConsulta);
 			int i = listAlumnos.size();
-			System.out.println("[INFORMACIÓN-consultasPostgreSQL-selectAllAlumnos] Número alumnos: "+i);
+			System.out.println("Cargada tabla alumnos");
+			System.out.println("[INFORMACIÓN-consultasPostgreSQL-uneTablas] Número alumnos: "+i);
 			
 			//Ejecutamos la consulta que nos interese, la recogemos en un ResultSet y la almacenamos en una lista
 			resultadoConsulta = null;
-			resultadoConsulta = declaracionSQL.executeQuery(query);
-			listAlmAsig = dtoADto.resultsetAdtoAlumnoAsignatura(resultadoConsulta);
+			resultadoConsulta = declaracionSQL.executeQuery("SELECT * FROM proyectoeclipse.asignaturas");
+			listAsig = dtoADto.resultsetAdtoAsignatura(resultadoConsulta);
+			
+			//Hacemos con la relacion Alumnos_Asignaturas lo mismo que la anterior.
+			resultadoConsulta = null;
+			resultadoConsulta = declaracionSQL.executeQuery("SELECT * FROM proyectoeclipse.rel_Alum_Asig");
+			listrel_Alum_Asig = dtoADto.resultsetAdtorel_Alum_Asig(resultadoConsulta);			
 			
 			//Aqui mostramos la lista
-			for (dtoAlumnoAsignatura dtoAlumnoAsignatura : listAlmAsig) {
-				System.out.println("Registro alumno: " + dtoAlumnoAsignatura.getNombre_alumno() + " " + dtoAlumnoAsignatura.getApellidos_alumno() + " " + dtoAlumnoAsignatura.getEmail_alumno() + " " + dtoAlumnoAsignatura.getNombre_asignatura());
+			
+			for (dtoAlumno dtoAlumno : listAlumnos) {								
+				
+				for(int j = 0; j < listrel_Alum_Asig.size(); j++) {
+					if(dtoAlumno.getId_alumno() == listrel_Alum_Asig.get(j).getId_alumno()) {
+						
+						//System.out.println(listAsig.get(listrel_Alum_Asig.get(j).getId_asignatura()-1).getNombre());						
+						
+					}
+					else {
+						//System.out.println();
+					}
+				}
+
+				System.out.println("Registro alumno: " + alumno_asignatura.getId_alumno() + " " + alumno_asignatura.getNombre_alumno() + " " + alumno_asignatura.getApellidos_alumno() + " " + alumno_asignatura.getEmail_alumno() + " " + alumno_asignatura.getNombre_asignatura());
 			}
+			/*Terminar objeto !!!!!!!!!
+			for (int j = 0; j < listrel_Alum_Asig.size(); j++) {
+				
+				//alumno_asignatura = new dtoAlumnoAsignatura(listrel_Alum_Asig.get(listAlumnos.get(j)).getId_alumno(), listAlumnos.get(j).getNombre(), listAlumnos.get(j).getApellidos(), listAlumnos.get(j).getEmail(), (listrel_Alum_Asig.get(j).getId_alumno() == listAlumnos.get(j).getId_alumno()) ? (listAsig.get(listrel_Alum_Asig.get(j).getId_asignatura()-1).getNombre()):null);
+				if(listrel_Alum_Asig.get(j).getId_alumno() == listAlumnos.get(j).getId_alumno()) {
+					//System.out.println(listAsig.get(listrel_Alum_Asig.get(j).getId_asignatura()-1).getNombre());						
+					
+				}
+				else {
+					alumno_asignatura =  new dtoAlumnoAsignatura(listAlumnos.get(j).getId_alumno(), listAlumnos.get(j).getNombre(), listAlumnos.get(j).getApellidos(), listAlumnos.get(j).getEmail(),listAsig.get(listrel_Alum_Asig.get(j).getId_asignatura()-1).getNombre());
+					//System.out.println();
+				}
+			
+
+			System.out.println("Registro alumno: " + alumno_asignatura.getId_alumno() + " " + alumno_asignatura.getNombre_alumno() + " " + alumno_asignatura.getApellidos_alumno() + " " + alumno_asignatura.getEmail_alumno() + " " + alumno_asignatura.getNombre_asignatura());
+			}
+			*/
+
 			
 			System.out.println("[INFORMACIÓN-consultasPostgreSQL-selectAllAlumnos] Cierre conexión, declaración y resultado");				
 		    resultadoConsulta.close();
