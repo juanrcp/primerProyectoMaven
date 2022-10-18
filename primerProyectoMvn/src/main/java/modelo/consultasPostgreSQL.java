@@ -14,6 +14,7 @@ import util.CierraConexion;
  */
 public class consultasPostgreSQL {
 	
+	//Metodo que muestra todos los alumnos y su asignatura si la tienen
 	public static ArrayList<dtoAlumno> selectAllAlumnos(String query, Connection conexionGenerada) {
 		
 		System.out.println("[INFORMACIÓN-consultasPostgreSQL-selectAllAlumnos] Entra en selectAllAlumnos");
@@ -60,6 +61,54 @@ public class consultasPostgreSQL {
 		
 	}
 	
+	//Metodo para unir dos tablas sin tener que hacer un join 
+	public static ArrayList<dtoAlumno> uneTablas(String query, Connection conexionGenerada) {
+		
+		System.out.println("[INFORMACIÓN-consultasPostgreSQL-selectAllAlumnos] Entra en selectAllAlumnos");
+		Statement declaracionSQL = null;
+		ResultSet resultadoConsulta = null;
+		ArrayList<dtoAlumno> listAlumnos = new ArrayList<>();
+		
+		ArrayList<dtoAlumnoAsignatura> listAlmAsig = new ArrayList<>();
+		
+		try {
+			
+			//Se abre una declaración
+			declaracionSQL = conexionGenerada.createStatement();
+			//Se define la consulta de la declaración y se ejecuta
+			resultadoConsulta = declaracionSQL.executeQuery("SELECT * FROM \"proyectoEclipse\".alumnos");
+		    
+			//Llamada a la conversión a dtoAlumno
+			listAlumnos = dtoADto.resultsetAdtoAlumno(resultadoConsulta);
+			int i = listAlumnos.size();
+			System.out.println("[INFORMACIÓN-consultasPostgreSQL-selectAllAlumnos] Número alumnos: "+i);
+			
+			//Ejecutamos la consulta que nos interese, la recogemos en un ResultSet y la almacenamos en una lista
+			resultadoConsulta = null;
+			resultadoConsulta = declaracionSQL.executeQuery(query);
+			listAlmAsig = dtoADto.resultsetAdtoAlumnoAsignatura(resultadoConsulta);
+			
+			//Aqui mostramos la lista
+			for (dtoAlumnoAsignatura dtoAlumnoAsignatura : listAlmAsig) {
+				System.out.println("Registro alumno: " + dtoAlumnoAsignatura.getNombre_alumno() + " " + dtoAlumnoAsignatura.getApellidos_alumno() + " " + dtoAlumnoAsignatura.getEmail_alumno() + " " + dtoAlumnoAsignatura.getNombre_asignatura());
+			}
+			
+			System.out.println("[INFORMACIÓN-consultasPostgreSQL-selectAllAlumnos] Cierre conexión, declaración y resultado");				
+		    resultadoConsulta.close();
+		    declaracionSQL.close();
+
+			
+		} catch (SQLException e) {
+			
+			System.out.println("[ERROR-conexionPostgresql-main] Error generando la declaracionSQL: " + e);
+			return listAlumnos;
+			
+		}
+		return listAlumnos;
+		
+	}
+	
+	//Metodo para insertar a un nuevo alumno
 	public static void insertNuevoAlumno(String query, Connection conexionGenerada) {
 		
 		//Declaramos un Statement donde recogeremos la query de la insercion 
@@ -84,6 +133,7 @@ public class consultasPostgreSQL {
 		
 	}
 	
+	//Metodo para borrar a un alumno
 	public static void deleteAlumno (String query, Connection conexionGenerada) {
 		
 		//Declaramos un Statement donde recogeremos la query del alumno que queremos eliminar.  
@@ -109,6 +159,7 @@ public class consultasPostgreSQL {
 		}		
 	}
 	
+	//Metodo para actualizar o modificar los datos de una tabla. 
 	public static void updateAlumno (String query, Connection conexionGenerada) {
 		
 		//Declaramos un Statement donde recogeremos la query del alumno que queremos modificar.  
@@ -135,7 +186,7 @@ public class consultasPostgreSQL {
 		
 	}
 	
-	
+	//Metodo que crea una tabla 
 	public static void CreateTable (String query, Connection conexionGenerada) {
 		
 		//Declaramos un Statement donde recogeremos la query de la tabla que queremos crear.  
