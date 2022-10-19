@@ -62,7 +62,7 @@ public class controladorPostgreSQL {
 			consultasPostgreSQL.updateAlumno("update \"proyectoEclipse\".alumnos set email = 'CAMBIO' where alumnos.\"Id_alumno\" = '3';", conexionGenerada);
 			
 			//Llamamos al metodo para crear tablas. 
-			//consultasPostgreSQL.CreateTable("create table \"proyectoEclipse\".profesores (\"id_profesor\" serial, \"nombre\" character VARYING, \"apellidos\" character VARYING, \"email\" character VARYING);", conexionGenerada);
+			consultasPostgreSQL.CreateTable("create table \"proyectoEclipse\".profesores (\"id_profesor\" serial, \"nombre\" character VARYING, \"apellidos\" character VARYING, \"email\" character VARYING);", conexionGenerada);
 
 			
 		}
