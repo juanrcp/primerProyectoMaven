@@ -24,6 +24,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/LOBITO/OneDrive/Desktop/Proyectos_Eclipse/mysql-connector-java-8.0.20.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juan Ramon Canto/eclipse/jee-2022-06/eclipse/plugins/postgresql-42.5.0.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

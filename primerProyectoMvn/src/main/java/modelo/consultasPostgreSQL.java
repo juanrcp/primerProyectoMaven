@@ -30,7 +30,7 @@ public class consultasPostgreSQL {
 			//Se abre una declaración
 			declaracionSQL = conexionGenerada.createStatement();
 			//Se define la consulta de la declaración y se ejecuta
-			resultadoConsulta = declaracionSQL.executeQuery("SELECT * FROM proyectoeclipse.alumnos");
+			resultadoConsulta = declaracionSQL.executeQuery("SELECT * FROM \"proyectoEclipse\".alumnos");
 		    
 			//Llamada a la conversión a dtoAlumno
 			listAlumnos = dtoADto.resultsetAdtoAlumno(resultadoConsulta);
@@ -79,7 +79,7 @@ public class consultasPostgreSQL {
 			//Se abre una declaración
 			declaracionSQL = conexionGenerada.createStatement();
 			//Se define la consulta de la declaración y se ejecuta
-			resultadoConsulta = declaracionSQL.executeQuery("SELECT * FROM proyectoeclipse.alumnos");
+			resultadoConsulta = declaracionSQL.executeQuery("SELECT * FROM \"proyectoEclipse\".alumnos");
 		    
 			//Llamada a la conversión a dtoAlumno
 			listAlumnos = dtoADto.resultsetAdtoAlumno(resultadoConsulta);
@@ -89,49 +89,41 @@ public class consultasPostgreSQL {
 			
 			//Ejecutamos la consulta que nos interese, la recogemos en un ResultSet y la almacenamos en una lista
 			resultadoConsulta = null;
-			resultadoConsulta = declaracionSQL.executeQuery("SELECT * FROM proyectoeclipse.asignaturas");
+			resultadoConsulta = declaracionSQL.executeQuery("SELECT * FROM \"proyectoEclipse\".asignaturas");
 			listAsig = dtoADto.resultsetAdtoAsignatura(resultadoConsulta);
 			
 			//Hacemos con la relacion Alumnos_Asignaturas lo mismo que la anterior.
 			resultadoConsulta = null;
-			resultadoConsulta = declaracionSQL.executeQuery("SELECT * FROM proyectoeclipse.rel_Alum_Asig");
+			resultadoConsulta = declaracionSQL.executeQuery("SELECT * FROM \"proyectoEclipse\".rel_alum_asig;");
 			listrel_Alum_Asig = dtoADto.resultsetAdtorel_Alum_Asig(resultadoConsulta);			
 			
-			//Aqui mostramos la lista
-			
+			//Aquí mostramos la lista directamente 
+			/*
 			for (dtoAlumno dtoAlumno : listAlumnos) {								
 				
-				for(int j = 0; j < listrel_Alum_Asig.size(); j++) {
+				System.out.println("Registro alumno: " + dtoAlumno.getId_alumno() + " " + dtoAlumno.getNombre() + " " + dtoAlumno.getApellidos() + " " + dtoAlumno.getEmail() + " ");				
+				
+				for(int j = 0; j < listrel_Alum_Asig.size(); j++) {					
+					
 					if(dtoAlumno.getId_alumno() == listrel_Alum_Asig.get(j).getId_alumno()) {
 						
-						//System.out.println(listAsig.get(listrel_Alum_Asig.get(j).getId_asignatura()-1).getNombre());						
+						System.out.println(listAsig.get(listrel_Alum_Asig.get(j).getId_asignatura()-1).getNombre());					
 						
 					}
 					else {
-						//System.out.println();
+						System.out.println();
 					}
 				}
-
-				System.out.println("Registro alumno: " + alumno_asignatura.getId_alumno() + " " + alumno_asignatura.getNombre_alumno() + " " + alumno_asignatura.getApellidos_alumno() + " " + alumno_asignatura.getEmail_alumno() + " " + alumno_asignatura.getNombre_asignatura());
-			}
-			/*Terminar objeto !!!!!!!!!
-			for (int j = 0; j < listrel_Alum_Asig.size(); j++) {
-				
-				//alumno_asignatura = new dtoAlumnoAsignatura(listrel_Alum_Asig.get(listAlumnos.get(j)).getId_alumno(), listAlumnos.get(j).getNombre(), listAlumnos.get(j).getApellidos(), listAlumnos.get(j).getEmail(), (listrel_Alum_Asig.get(j).getId_alumno() == listAlumnos.get(j).getId_alumno()) ? (listAsig.get(listrel_Alum_Asig.get(j).getId_asignatura()-1).getNombre()):null);
-				if(listrel_Alum_Asig.get(j).getId_alumno() == listAlumnos.get(j).getId_alumno()) {
-					//System.out.println(listAsig.get(listrel_Alum_Asig.get(j).getId_asignatura()-1).getNombre());						
-					
-				}
-				else {
-					alumno_asignatura =  new dtoAlumnoAsignatura(listAlumnos.get(j).getId_alumno(), listAlumnos.get(j).getNombre(), listAlumnos.get(j).getApellidos(), listAlumnos.get(j).getEmail(),listAsig.get(listrel_Alum_Asig.get(j).getId_asignatura()-1).getNombre());
-					//System.out.println();
-				}
-			
-
-			System.out.println("Registro alumno: " + alumno_asignatura.getId_alumno() + " " + alumno_asignatura.getNombre_alumno() + " " + alumno_asignatura.getApellidos_alumno() + " " + alumno_asignatura.getEmail_alumno() + " " + alumno_asignatura.getNombre_asignatura());
 			}
 			*/
-
+			
+			//Aqui contruimos un objeto con alumno y asignatura y lo mostramos.
+			for (int j = 0; j < listrel_Alum_Asig.size(); j++) {				
+				alumno_asignatura = new dtoAlumnoAsignatura(listrel_Alum_Asig.get(j).getId_alumno(), listAlumnos.get(listrel_Alum_Asig.get(j).getId_alumno() - 1).getNombre(), listAlumnos.get(listrel_Alum_Asig.get(j).getId_alumno()-1).getApellidos(), listAlumnos.get(listrel_Alum_Asig.get(j).getId_alumno()-1).getEmail(), (listrel_Alum_Asig.get(j).getId_alumno() == listAlumnos.get(j).getId_alumno()) ? (listAsig.get(listrel_Alum_Asig.get(j).getId_asignatura() - 1).getNombre()):null);
+				
+				System.out.println("Registro alumno: " + alumno_asignatura.getId_alumno() + " " + alumno_asignatura.getNombre_alumno() + " " + alumno_asignatura.getApellidos_alumno() + " " + alumno_asignatura.getEmail_alumno() + " " + alumno_asignatura.getNombre_asignatura());
+			}
+			
 			
 			System.out.println("[INFORMACIÓN-consultasPostgreSQL-selectAllAlumnos] Cierre conexión, declaración y resultado");				
 		    resultadoConsulta.close();

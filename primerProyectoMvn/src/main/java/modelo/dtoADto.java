@@ -96,7 +96,7 @@ public class dtoADto {
 			try {
 				while ( resultadoConsulta.next() ) {
 					
-					listAlum_Asig.add(new dtorel_Alum_Asig(resultadoConsulta.getInt("idalumno_asignatura"), resultadoConsulta.getInt("id_alumno"), resultadoConsulta.getInt("id_asignatura")));
+					listAlum_Asig.add(new dtorel_Alum_Asig(resultadoConsulta.getInt("id_rel_alum_asig"), resultadoConsulta.getInt("id_alumno"), resultadoConsulta.getInt("id_asignatura")));
 				}		
 				System.out.println("Cargada tabla rel_Alum_Asig");
 				
